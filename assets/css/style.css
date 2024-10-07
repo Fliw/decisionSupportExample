@@ -1,0 +1,616 @@
+@charset "UTF-8";
+/* ====== Table of content Start =====*/
+/*
+Project Name: Quizo
+File        : CSS Base
+Version     : 1.0.0
+Author      : jthemes (https://themeforest.net/user/jthemes)
+*/
+/* ====== Table of content End =====*/
+/* Default transition start*/
+/*Default transition end*/
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../images/bg_0.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.count_box {
+  max-width: 25rem;
+  min-height: 5.625rem;
+  background: -webkit-gradient(linear, left top, right top, from(#18f9bd), to(#0ab84b));
+  background: linear-gradient(to right, #18f9bd, #0ab84b);
+  font-family: "Jost", sans-serif;
+}
+
+.count_clock img {
+  width: 2.5rem;
+}
+
+.count_title h4 {
+  color: #000a38;
+  font-size: 1.146875rem;
+  font-weight: 800;
+  margin-bottom: -0.4rem;
+}
+.count_title span {
+  color: #000a38;
+  font-size: 1.146875rem;
+  font-weight: 800;
+}
+
+.count_number {
+  width: 14rem;
+  height: 4.5rem;
+  background-color: #ffffff;
+  margin-right: -0.4rem;
+}
+.count_number .count_hours h3,
+.count_number .count_min h3,
+.count_number .count_sec h3 {
+  color: #000a38;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: -0.4rem;
+}
+.count_number .count_hours span,
+.count_number .count_min span,
+.count_number .count_sec span {
+  color: #000a38;
+  font-size: 1rem;
+  font-weight: 800;
+  padding-left: 0.2rem;
+}
+.count_number .count_hours:after,
+.count_number .count_min:after,
+.count_number .count_sec:after {
+  content: "";
+  width: 0.1875rem;
+  height: 2.5625rem;
+  top: 50%;
+  right: 80px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  position: absolute;
+  background-color: #e1e1e1;
+}
+.count_number .count_hours:before,
+.count_number .count_min:before,
+.count_number .count_sec:before {
+  content: "";
+  width: 0.1875rem;
+  height: 2.5625rem;
+  top: 50%;
+  left: 80px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  position: absolute;
+  background-color: #e1e1e1;
+}
+
+.multisteps_form {
+  max-width: 88.125rem;
+  min-height: 48.4375rem;
+  background-image: url("../images/bg_1.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-color: #ffffff;
+  background-size: 88.125rem 16.5rem;
+  margin: 5rem auto;
+  -webkit-box-shadow: 0 -3em 3em rgba(73, 73, 73, 0.1), 0.3em 0.3em 1em rgba(73, 73, 73, 0.1);
+          box-shadow: 0 -3em 3em rgba(73, 73, 73, 0.1), 0.3em 0.3em 1em rgba(73, 73, 73, 0.1);
+}
+
+.multisteps_form_panel {
+  display: none;
+}
+
+.question_title h1 {
+  color: #222222;
+  font-size: 1.6875rem;
+  border: 1px solid #91e2a8;
+  border-bottom: 2px solid #91e2a8;
+  padding: 10rem;
+  border-radius: 0.3125rem;
+  background-color: #ffffff;
+  font-weight: 800;
+  margin-top: 10rem;
+}
+
+.row li {
+  width: 40%;
+  color: #464646;
+  font-size: 1.375rem;
+  margin-right: 1.5625rem;
+  padding: 1.25rem 2rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: 2px solid #d2d2d2;
+  border-radius: 0.3125rem;
+}
+.row li label {
+  float: left;
+  padding-left: 2.375rem;
+}
+.row li span {
+  top: 50%;
+  left: 27px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 1;
+}
+.row li:last-child {
+  margin-right: 0;
+}
+.row li label {
+  cursor: pointer;
+}
+.row li input {
+  display: none;
+}
+.row li:after {
+  content: "";
+  top: 50%;
+  left: 15px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  position: absolute;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 0.3125rem;
+  background-color: #def7e5;
+}
+.row li:before {
+  content: "";
+  top: 50%;
+  left: 24px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-size: 1.4375rem;
+  line-height: 1;
+  font-weight: 400;
+  display: none;
+  color: #fff;
+  z-index: 1;
+  font-family: "Font Awesome 5 Pro";
+  position: absolute;
+}
+.row li.active {
+  color: #22a247;
+  border: 2px solid #22a247;
+  border-bottom: 3px solid #22a247;
+  border-radius: 0.3125rem;
+  background-color: #def7e5;
+}
+.row li.active span {
+  display: none;
+}
+.row li.active:after {
+  background: -webkit-gradient(linear, left top, right top, from(#46fac8), to(#0aba4f));
+  background: linear-gradient(to right, #46fac8, #0aba4f);
+}
+.row li.active:before {
+  display: block;
+  z-index: 2;
+}
+
+.step_progress {
+  bottom: 30px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.step_progress span {
+  color: #464646;
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
+.progress {
+  max-width: 21.875rem;
+  margin: 0 auto;
+}
+.progress .progress-bar {
+  background: -webkit-gradient(linear, left top, right top, from(#18f9bd), to(#0ab84b)) !important;
+  background: linear-gradient(to right, #18f9bd, #0ab84b) !important;
+}
+
+.f_btn {
+  font-size: 1.125rem;
+  font-weight: 800;
+  padding: 0.9375rem 1.5625rem;
+  outline: none;
+  border: none;
+  background: -webkit-gradient(linear, left top, right top, from(#18f9bd), to(#0ab84b));
+  background: linear-gradient(to right, #18f9bd, #0ab84b);
+}
+.f_btn:hover {
+  color: #ffffff;
+  background: -webkit-gradient(linear, left top, right top, from(#0ab84b), to(#18f9bd));
+  background: linear-gradient(to right, #0ab84b, #18f9bd);
+  -webkit-transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.prev_btn {
+  left: 0;
+  bottom: 0;
+}
+
+.next_btn {
+  right: 0;
+  bottom: 0;
+}
+
+body {
+  line-height: 1.65;
+  font-style: normal;
+  font-display: swap;
+  font-family: "Sen", sans-serif;
+}
+
+a,
+button,
+input {
+  cursor: pointer;
+  display: inline-block;
+}
+a:hover,
+button:hover,
+input:hover {
+  text-decoration: none;
+}
+a:focus,
+button:focus,
+input:focus {
+  outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* css animations - end ============================================= */
+/* transition - start =============================================== */
+a,
+button {
+  -webkit-transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* transition - end ================================================= */
+.animate_25ms {
+  -webkit-animation-delay: 25ms;
+          animation-delay: 25ms;
+}
+
+.animate_50ms {
+  -webkit-animation-delay: 50ms;
+          animation-delay: 50ms;
+}
+
+.animate_100ms {
+  -webkit-animation-delay: 100ms;
+          animation-delay: 100ms;
+}
+
+.animate_150ms {
+  -webkit-animation-delay: 150ms;
+          animation-delay: 150ms;
+}
+
+.animate_200ms {
+  -webkit-animation-delay: 200ms;
+          animation-delay: 200ms;
+}
+
+@media (min-width: 1500px) {
+  .container {
+    max-width: 1510px;
+  }
+}
+/* ==================================================
+*	01 - media screen and (max-width: 991px)
+*	02 - media screen and (max-width: 767px)
+*	03 - media screen and (max-width: 575px)
+*	04 - media screen and (max-width: 380px)
+*	05 - media screen and (max-width: 320px)
+*   XX-Large devices (larger desktops)
+*   No media query since the xxl breakpoint has no upper bound on its width
+================================================== */
+@media screen and (max-width: 991.98px) {
+  .logo_area {
+    padding-left: 0rem !important;
+  }
+
+  .count_box {
+    margin-right: 0rem !important;
+  }
+
+  .count_title h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .count_title span {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .count_number {
+    width: 12rem;
+  }
+  .count_number .count_hours h3,
+.count_number .count_min h3,
+.count_number .count_sec h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+  .count_number .count_hours span,
+.count_number .count_min span,
+.count_number .count_sec span {
+    font-size: 1rem;
+    font-weight: 700;
+    padding-left: 0rem;
+  }
+  .count_number .count_hours:after,
+.count_number .count_min:after,
+.count_number .count_sec:after {
+    right: 66px;
+  }
+  .count_number .count_hours:before,
+.count_number .count_min:before,
+.count_number .count_sec:before {
+    left: 68px;
+  }
+
+  .multisteps_form {
+    max-width: 86rem;
+    min-height: 43rem;
+  }
+
+  .question_title h1 {
+    font-size: 1.3875rem;
+    padding: 3.5rem 1rem !important;
+  }
+
+  .row li {
+    width: 40%;
+    font-size: 1.175rem;
+    padding: 1.25rem 2rem;
+    font-weight: 700;
+  }
+  .row li:after {
+    height: 2.3rem;
+    width: 2.3rem;
+  }
+  .row li:before {
+    font-size: 1.1375rem;
+    line-height: 1;
+  }
+  .row li label {
+    padding-left: 1.5rem;
+  }
+
+  .step_progress {
+    bottom: 19px;
+  }
+  .step_progress span {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .progress {
+    max-width: 17rem;
+  }
+
+  .f_btn {
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.7375rem 1.2625rem;
+  }
+}
+@media screen and (max-width: 767.98px) {
+  .logo_area {
+    text-align: center;
+    display: block;
+  }
+
+  .count_title h4 {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding-right: 0.2rem;
+  }
+
+  .count_number {
+    width: 12rem;
+    height: 3.5rem;
+  }
+  .count_number .count_hours h3,
+.count_number .count_min h3,
+.count_number .count_sec h3 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .count_number .count_hours span,
+.count_number .count_min span,
+.count_number .count_sec span {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .count_number .count_hours:after,
+.count_number .count_min:after,
+.count_number .count_sec:after {
+    top: 8px;
+    right: 51px;
+  }
+  .count_number .count_hours:before,
+.count_number .count_min:before,
+.count_number .count_sec:before {
+    top: 8px;
+    left: 48px;
+  }
+
+  .multisteps_form {
+    max-width: 83rem;
+    min-height: 40rem;
+  }
+
+  .question_title h1 {
+    font-size: 1rem;
+    padding: 3rem 1rem !important;
+  }
+
+  .row li {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    font-weight: 600;
+  }
+  .row li span {
+    left: 25px;
+  }
+  .row li:after {
+    height: 2rem;
+    width: 2rem;
+  }
+  .row li:before {
+    font-size: 1rem;
+    line-height: 0.8;
+  }
+
+  .step_progress span {
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+
+  .progress {
+    max-width: 15rem;
+  }
+
+  .f_btn {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.5375rem 0.4rem;
+  }
+}
+@media screen and (max-width: 575.98px) {
+  .logo_area {
+    text-align: center;
+    padding-left: 0rem !important;
+  }
+
+  .multisteps_form {
+    max-width: 81rem;
+    min-height: 38rem;
+  }
+
+  .question_title h1 {
+    font-size: 0.8rem;
+    padding: 2rem 0.8rem !important;
+  }
+
+  .row li {
+    font-size: 0.8rem;
+    padding: 1rem 2rem;
+    font-weight: 500;
+  }
+  .row li span {
+    left: 24px;
+  }
+  .row li:after {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+  .row li:before {
+    font-size: 0.8rem;
+    line-height: 0.7;
+  }
+
+  .step_progress {
+    bottom: 28px;
+  }
+  .step_progress span {
+    font-size: 0.8rem;
+  }
+
+  .progress {
+    max-width: 9rem;
+    min-height: 0.7rem;
+  }
+}
+@media screen and (max-width: 379.98px) {
+  .multisteps_form {
+    max-width: 79rem;
+    min-height: 33rem;
+  }
+
+  .question_title h1 {
+    font-size: 0.8rem;
+    padding: 1.5rem 0.8rem !important;
+  }
+
+  .row li {
+    font-size: 0.6rem;
+    padding: 0.7rem 0rem;
+    padding-left: 2rem;
+    font-weight: 500;
+  }
+  .row li:after {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .row li:before {
+    font-size: 0.5rem;
+  }
+
+  .step_progress span {
+    font-size: 0.7rem;
+  }
+
+  .f_btn {
+    font-size: 0.5rem;
+    padding: 0.3375rem 0.8rem;
+  }
+}
+@media screen and (max-width: 319.98px) {
+  .multisteps_form {
+    min-height: 32rem;
+  }
+
+  .question_title h1 {
+    padding: 1rem 0.8rem !important;
+  }
+
+  .row li {
+    font-size: 0.6rem;
+    padding: 0.6rem 0rem;
+    padding-left: 2rem;
+  }
+  .row li span {
+    left: 22px;
+  }
+  .row li:after {
+    height: 1.3rem;
+    width: 1.3rem;
+  }
+  .row li:before {
+    font-size: 0.4rem;
+  }
+
+  .progress {
+    max-width: 8rem;
+  }
+
+  .f_btn {
+    font-size: 0.5rem;
+    padding: 0.3375rem 0.6rem;
+  }
+}
