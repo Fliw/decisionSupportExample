@@ -1,0 +1,168 @@
+{
+    "program_studi": [
+        {
+            "nama": "Biologi",
+            "skor_minimal": 8
+        },
+        {
+            "nama": "Fisika",
+            "skor_minimal": 10
+        },
+        {
+            "nama": "Geofisika",
+            "skor_minimal": 10
+        },
+        {
+            "nama": "Kimia",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Statistika",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Matematika",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Astronomi",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Sastra Inggris",
+            "skor_minimal": 5
+        },
+        {
+            "nama": "Hubungan Internasional",
+            "skor_minimal": 8
+        },
+        {
+            "nama": "Ilmu Komunikasi",
+            "skor_minimal": 8
+        },
+        {
+            "nama": "Ilmu Politik",
+            "skor_minimal": 8
+        },
+        {
+            "nama": "Psikologi",
+            "skor_minimal": 10
+        },
+        {
+            "nama": "Hukum",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Bisnis dan Manajemen",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Akuntansi",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Ekonomi",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Desain Komunikasi Visual",
+            "skor_minimal": 18
+        },
+        {
+            "nama": "Teknik Informatika",
+            "skor_minimal": 22
+        },
+        {
+            "nama": "Ilmu Komputer",
+            "skor_minimal": 22
+        },
+        {
+            "nama": "Teknik Komputer",
+            "skor_minimal": 20
+        },
+        {
+            "nama": "Sistem Informasi",
+            "skor_minimal": 18
+        },
+        {
+            "nama": "Manajemen Informasi",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Pendidikan Dokter",
+            "skor_minimal": 22
+        },
+        {
+            "nama": "Pendidikan Dokter Gigi",
+            "skor_minimal": 22
+        },
+        {
+            "nama": "Farmasi",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Kesehatan Masyarakat",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Keperawatan",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Kebidanan",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Ilmu Gizi",
+            "skor_minimal": 15
+        },
+        {
+            "nama": "Kedokteran Hewan",
+            "skor_minimal": 20
+        },
+        {
+            "nama": "Hukum Publik",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Hukum Perdata",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Hukum Internasional",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Ilmu Hukum",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Hukum Pidana",
+            "skor_minimal": 12
+        },
+        {
+            "nama": "Seni Tari",
+            "skor_minimal": 3
+        },
+        {
+            "nama": "Seni Rupa",
+            "skor_minimal": 5
+        },
+        {
+            "nama": "Seni Musik",
+            "skor_minimal": 5
+        },
+        {
+            "nama": "Seni Rupa Kreatif dan Desain",
+            "skor_minimal": 8
+        },
+        {
+            "nama": "Kerajinan Tangan",
+            "skor_minimal": 3
+        },
+        {
+            "nama": "Administrasi Seni",
+            "skor_minimal": 5
+        }
+    ]
+}
