@@ -1,5 +1,56 @@
 document.getElementsByClassName("multisteps_form_panel")[0].style.display = "block";
 
+document.addEventListener("DOMContentLoaded", function () {
+  const driver = window.driver.js.driver;
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        popover: {
+          title: 'Selamat Datang! 😉',
+          description: 'LapFinder adalah aplikasi yang membantu kamu menemukan laptop yang cocok untuk kebutuhan kuliah kamu. Klik next untuk melanjutkan.'
+        },
+      },
+      {
+        element: '#budget',
+        popover: {
+          title: 'Budget kamu 💵',
+          description: 'Masukkan budget yang kamu miliki untuk membeli laptop, biar gak kemahalan h3h3',
+          side: "left",
+          align: 'start'
+        }
+      },
+      {
+        element: '#prodi',
+        popover: {
+          title: 'Program Studi 📚',
+          description: 'Pilih program studi kamu, biar kami bisa memberikan rekomendasi laptop yang sesuai dengan kebutuhan kamu',
+          side: "right",
+          align: 'start'
+        }
+      },
+      {
+        element: '#getRecommendationBtn',
+        popover: {
+          title: 'Cari Laptop 🚀',
+          description: 'Klik tombol ini untuk mendapatkan rekomendasi laptop yang sesuai dengan kebutuhan kamu',
+          side: "left",
+          align: 'start'
+        }
+      },
+      {
+        popover: {
+          title: 'Selesai! 🎉',
+          description: 'Terima kasih sudah menggunakan LapFinder, semoga kamu menemukan laptop yang sesuai dengan kebutuhan kamu. Klik Done untuk menutup tutorial.',
+          done: true
+        }
+      }
+    ]
+  });
+  driverObj.drive();
+});
+
+
 fetch("./data/prodiDataset.json")
   .then(response => {
     if (!response.ok) {
@@ -50,7 +101,7 @@ function fetchDataset() {
     .catch(error => {
       console.error("Fetch error: ", error);
     }
-  );
+    );
 }
 
 function checkValue() {
@@ -74,6 +125,6 @@ function checkValue() {
   }
 }
 
-function topsis(bareMinimum, budget, datasetLaptop) {}
+function topsis(bareMinimum, budget, datasetLaptop) { }
 
 
