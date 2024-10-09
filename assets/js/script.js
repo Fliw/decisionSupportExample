@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         popover: {
           title: 'Selamat Datang! 😉',
-          description: 'LapFinder adalah aplikasi yang membantu kamu menemukan laptop yang cocok untuk kebutuhan kuliah kamu. Klik next untuk melanjutkan.'
+          description: '<center><dotlottie-player class="animate__animated animate__fadeInRight animate_25ms mb-4" src="https://assets-v2.lottiefiles.com/a/406ea70a-117b-11ee-b032-b7c55ec812d5/x3Sz2IKXxN.lottie" background="transparent" speed="1" style="width: 200px" loop autoplay></dotlottie-player></center><p class="animate__animated animate__fadeInRight animate_25ms">LapFinder adalah aplikasi yang membantu kamu menemukan laptop yang cocok untuk kebutuhan kuliah kamu. Klik next untuk melanjutkan.</p>'
         },
       },
       {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         popover: {
           title: 'Selesai! 🎉',
-          description: 'Terima kasih sudah menggunakan LapFinder, semoga kamu menemukan laptop yang sesuai dengan kebutuhan kamu. Klik Done untuk menutup tutorial.',
+          description: '<center><dotlottie-player class="animate__animated animate__fadeInRight animate_25ms mb-4" src="https://assets-v2.lottiefiles.com/a/6544d232-ae35-11ee-9770-b7be24456b50/qvvTcwZe42.lottie" background="transparent" speed="1" style="width: 200px" loop autoplay></dotlottie-player></center><p class="animate__animated animate__fadeInRight animate_25ms">Terima kasih sudah menggunakan LapFinder, semoga kamu menemukan laptop yang sesuai dengan kebutuhan kamu. Klik Done untuk menutup tutorial.</p>',
           done: true
         }
       }
@@ -84,7 +84,9 @@ function getRecommendation() {
   const budget = document.getElementById("budget").value;
   const datasetLaptop = fetchDataset();
 
-  topsis(bareMinimum, budget, datasetLaptop);
+  Topsis(bareMinimum, budget, datasetLaptop);
+  SAW(bareMinimum, budget, datasetLaptop);
+  WP(bareMinimum, budget, datasetLaptop);
 }
 
 function fetchDataset() {
@@ -125,6 +127,9 @@ function checkValue() {
   }
 }
 
-function topsis(bareMinimum, budget, datasetLaptop) { }
+function Topsis(bareMinimum, budget, datasetLaptop) { }
 
+function SAW(bareMinimum, budget, datasetLaptop) { }
+
+function WP(bareMinimum, budget, datasetLaptop) { }
 
