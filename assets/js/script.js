@@ -8,7 +8,6 @@ fetch("./data/prodiDataset.json")
     return response.json();
   })
   .then(data => {
-    console.log(data);
     if (Array.isArray(data.program_studi)) {
       prodiDataset = data.program_studi;
       prodiDataset.forEach(element => {
@@ -24,4 +23,57 @@ fetch("./data/prodiDataset.json")
   .catch(error => {
     console.error("Fetch error: ", error);
   }
-);
+  );
+
+function getRecommendation() {
+  if (checkValue() == false) {
+    return;
+  }
+  const bareMinimum = document.getElementById("prodi").options[document.getElementById("prodi").selectedIndex].value;
+  const budget = document.getElementById("budget").value;
+  const datasetLaptop = fetchDataset();
+
+  topsis(bareMinimum, budget, datasetLaptop);
+}
+
+function fetchDataset() {
+  fetch("./data/updatedDataset.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      console.error("Fetch error: ", error);
+    }
+  );
+}
+
+function checkValue() {
+  const budget = document.getElementById("budget").value;
+  const selectedProdi = document.getElementById("prodi").options[document.getElementById("prodi").selectedIndex].value;
+  if (budget == "") {
+    swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'kamu belum memasukkan budget',
+    });
+    return false;
+  }
+  if (selectedProdi == "0") {
+    swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'kamu belum memilih prodi',
+    });
+    return false;
+  }
+}
+
+function topsis(bareMinimum, budget, datasetLaptop) {}
+
+
