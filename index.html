@@ -11,6 +11,8 @@
    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
    <link rel="stylesheet" href="assets/css/animate.min.css">
    <link rel="stylesheet" href="assets/css/style.css">
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
 </head>
 
 <body>
@@ -42,12 +44,14 @@
                <center>
                   <button type="button"
                      class="btn btn-lg btn-success text-uppercase text-center mt-4 animate__animated animate__fadeInRight animate_25ms"
-                     onclick="">Cari Rekomendasi Laptop</button>
+                     onclick="getRecommendation()">Cari Rekomendasi Laptop</button>
                </center>
             </div>
          </form>
       </div>
    </div>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
    <script src="assets/js/bootstrap.min.js"></script>
    <script src="assets/js/script.js"></script>
 </body>
