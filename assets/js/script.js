@@ -131,5 +131,71 @@ function Topsis(bareMinimum, budget, datasetLaptop) { }
 
 function SAW(bareMinimum, budget, datasetLaptop) { }
 
-function WP(bareMinimum, budget, datasetLaptop) { }
+function WP(bareMinimum, budget, datasetLaptop) {
+  // Importing the datasets
+const updatedDataset = require('../data/updatedDataset.json');
+const prodiDataset = require('../data/prodiDataset.json');
+
+// Function to calculate the Weighted Product (WP) score
+function calculateWPScores(dataset, weights) {
+  return dataset.map((item) => {
+    let score = 1;
+    weights.forEach((weight, index) => {
+      score *= Math.pow(item.criteria[index], weight);
+    });
+    return {
+      ...item,
+      wpScore: score,
+    };
+  });
+}
+
+// Function to normalize weights
+function normalizeWeights(weights) {
+  const totalWeight = weights.reduce((acc, weight) => acc + weight, 0);
+  return weights.map((weight) => weight / totalWeight);
+}
+
+// Main function to calculate WP for updatedDataset.json
+function calculateWP() {
+  // Define weights for each criterion (you can modify these values as needed)
+  const weights = [0.3, 0.2, 0.4, 0.1];
+  const normalizedWeights = normalizeWeights(weights);
+
+  // Calculate WP scores
+  const wpScores = calculateWPScores(updatedDataset, normalizedWeights);
+
+  // Sort results based on WP scores in descending order
+  const sortedResults = wpScores.sort((a, b) => b.wpScore - a.wpScore);
+
+  // Print the sorted results
+  console.log('Weighted Product Scores:', sortedResults);
+}
+
+// Function to match program studies with minimum scores
+function matchProdiWithScores(wpScores) {
+  return wpScores.map((item) => {
+    const suitablePrograms = prodiDataset.program_studi.filter((prodi) => {
+      return item.wpScore >= prodi.skor_minimal;
+    });
+    return {
+      ...item,
+      suitablePrograms: suitablePrograms.map((prodi) => prodi.nama),
+    };
+  });
+}
+
+// Execute the WP calculation and match with program studies
+function executeDecisionSupport() {
+  calculateWP();
+  const wpScores = calculateWPScores(updatedDataset, normalizeWeights([0.3, 0.2, 0.4, 0.1]));
+  const results = matchProdiWithScores(wpScores);
+
+  // Print the results with suitable programs
+  console.log('Matching Programs:', results);
+}
+
+// Run the decision support system
+executeDecisionSupport();
+}
 
