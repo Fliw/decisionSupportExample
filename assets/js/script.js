@@ -87,21 +87,26 @@ fetch("./data/prodiDataset.json")
   );
 
 async function getRecommendation() {
-  if (checkValue() == false) {
-    return;
-  }
-  const bareMinimum = document.getElementById("prodi").options[document.getElementById("prodi").selectedIndex].value;
-  const budget = parseInt(document.getElementById("budget").value.replace(/[^0-9]/g, ""), 10);
-  console.log(bareMinimum, budget);
-  const datasetLaptop = await fetchDataset();
-  console.log(datasetLaptop);
+  if (checkValue() === false) return;
 
-  const sortedTopsis = Topsis(bareMinimum, budget, datasetLaptop);
-  console.log(sortedTopsis);
-  populateTable(sortedTopsis, "recomendedLaptopTopsis");
-  document.getElementById("lottieAnim").style.display = "none";
+  const bareMinimum = document.getElementById("prodi").value;
+  const budget = parseInt(document.getElementById("budget").value.replace(/[^0-9]/g, ""), 10);
+  const datasetLaptop = await fetchDataset();
   
-}
+  const selectedMethod = document.querySelector(".nav-link.active").id;
+
+  let sortedLaptops;
+  if (selectedMethod === 'nav-topsis-btn') {
+    sortedLaptops = Topsis(bareMinimum, budget, datasetLaptop);
+    populateTable(sortedLaptops, "recomendedLaptopTopsis");
+  } else if (selectedMethod === 'nav-wp-btn') {
+    sortedLaptops = WP(bareMinimum, budget, datasetLaptop);
+    populateTable(sortedLaptops, "recomendedLaptopWP");
+  }
+  
+  document.getElementById("lottieAnim").style.display = "none";
+}  
+
 
 function populateTable(sortedLaptops, tableId) {
   const tableBody = document.querySelector("#"+tableId+" tbody");
@@ -242,71 +247,43 @@ function Topsis(bareMinimum, budget, datasetLaptop) {
 
 function SAW(bareMinimum, budget, datasetLaptop) { }
 
-function WP(bareMinimum, budget, datasetLaptop) {
-  // Importing the datasets
-const updatedDataset = require('../data/updatedDataset.json');
-const prodiDataset = require('../data/prodiDataset.json');
+function WP(bareMinimum, budget, datasetLaptop) { 
+  // Filter data laptop berdasarkan budget dan skor minimal
+  datasetLaptop = datasetLaptop.filter(laptop => laptop.price_in_rupiah <= budget);
+  datasetLaptop = datasetLaptop.filter(laptop => laptop.cpu_score >= bareMinimum);
+  console.log(datasetLaptop);
 
-// Function to calculate the Weighted Product (WP) score
-function calculateWPScores(dataset, weights) {
-  return dataset.map((item) => {
+  // Bobot untuk setiap kriteria
+  const weight = {
+    price_in_rupiah: 0.4,
+    cpu_score: 0.3,
+    ram_score: 0.2,
+    storage_score: 0.1
+  };
+
+  const criteriaKeys = Object.keys(weight);
+
+  // Normalisasi bobot dengan membagi setiap bobot dengan total bobot
+  const totalWeight = Object.values(weight).reduce((sum, w) => sum + w, 0);
+  const normalizedWeights = {};
+  criteriaKeys.forEach(criteria => {
+    normalizedWeights[criteria] = weight[criteria] / totalWeight;
+  });
+
+  // Menghitung skor WP untuk setiap laptop
+  const wpScores = datasetLaptop.map(laptop => {
     let score = 1;
-    weights.forEach((weight, index) => {
-      score *= Math.pow(item.criteria[index], weight);
+    criteriaKeys.forEach(criteria => {
+      score *= Math.pow(laptop[criteria], normalizedWeights[criteria]);
     });
     return {
-      ...item,
-      wpScore: score,
+      ...laptop,
+      wp_score: score
     };
   });
+
+  // Mengurutkan laptop berdasarkan skor WP dari tertinggi ke terendah
+  const sortedLaptops = wpScores.sort((a, b) => b.wp_score - a.wp_score);
+
+  return sortedLaptops;
 }
-
-// Function to normalize weights
-function normalizeWeights(weights) {
-  const totalWeight = weights.reduce((acc, weight) => acc + weight, 0);
-  return weights.map((weight) => weight / totalWeight);
-}
-
-// Main function to calculate WP for updatedDataset.json
-function calculateWP() {
-  // Define weights for each criterion (you can modify these values as needed)
-  const weights = [0.3, 0.2, 0.4, 0.1];
-  const normalizedWeights = normalizeWeights(weights);
-
-  // Calculate WP scores
-  const wpScores = calculateWPScores(updatedDataset, normalizedWeights);
-
-  // Sort results based on WP scores in descending order
-  const sortedResults = wpScores.sort((a, b) => b.wpScore - a.wpScore);
-
-  // Print the sorted results
-  console.log('Weighted Product Scores:', sortedResults);
-}
-
-// Function to match program studies with minimum scores
-function matchProdiWithScores(wpScores) {
-  return wpScores.map((item) => {
-    const suitablePrograms = prodiDataset.program_studi.filter((prodi) => {
-      return item.wpScore >= prodi.skor_minimal;
-    });
-    return {
-      ...item,
-      suitablePrograms: suitablePrograms.map((prodi) => prodi.nama),
-    };
-  });
-}
-
-// Execute the WP calculation and match with program studies
-function executeDecisionSupport() {
-  calculateWP();
-  const wpScores = calculateWPScores(updatedDataset, normalizeWeights([0.3, 0.2, 0.4, 0.1]));
-  const results = matchProdiWithScores(wpScores);
-
-  // Print the results with suitable programs
-  console.log('Matching Programs:', results);
-}
-
-// Run the decision support system
-executeDecisionSupport();
-}
-
