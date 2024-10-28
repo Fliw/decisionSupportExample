@@ -5,18 +5,24 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>lapFinder</title>
-   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700;800&amp;family=Sen:wght@400;700;800&amp;display=swap" rel="stylesheet">
+   <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700;800&amp;family=Sen:wght@400;700;800&amp;display=swap"
+      rel="stylesheet">
    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
    <link rel="stylesheet" href="assets/css/animate.min.css">
    <link rel="stylesheet" href="assets/css/style.css">
    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
-   <link rel="icon" href="https://katamata.wordpress.com/wp-content/uploads/2013/09/logo-ugm.png?w=640" type="image/x-icon">
-   <meta name="description" content="lapFinder adalah aplikasi yang membantu kamu menemukan laptop yang sesuai dengan kebutuhanmu.">
-   <meta name="keywords" content="lapFinder, laptop, rekomendasi, laptop rekomendasi, laptop rekomendasi murah, laptop rekomendasi terbaik, laptop rekomendasi terjangkau, laptop rekomendasi terbaru, laptop rekomendasi terbaik 2021, laptop rekomendasi terbaik 2022, laptop rekomendasi terbaik 2023, laptop rekomendasi terbaik 2024, laptop rekomendasi terbaik 2025, laptop rekomendasi terbaik 2026, laptop rekomendasi terbaik 2027, laptop rekomendasi terbaik 2028, laptop rekomendasi terbaik 2029, laptop rekomendasi terbaik 2030">
+   <link rel="icon" href="https://katamata.wordpress.com/wp-content/uploads/2013/09/logo-ugm.png?w=640"
+      type="image/x-icon">
+   <meta name="description"
+      content="lapFinder adalah aplikasi yang membantu kamu menemukan laptop yang sesuai dengan kebutuhanmu.">
+   <meta name="keywords"
+      content="lapFinder, laptop, rekomendasi, laptop rekomendasi, laptop rekomendasi murah, laptop rekomendasi terbaik, laptop rekomendasi terjangkau, laptop rekomendasi terbaru, laptop rekomendasi terbaik 2021, laptop rekomendasi terbaik 2022, laptop rekomendasi terbaik 2023, laptop rekomendasi terbaik 2024, laptop rekomendasi terbaik 2025, laptop rekomendasi terbaik 2026, laptop rekomendasi terbaik 2027, laptop rekomendasi terbaik 2028, laptop rekomendasi terbaik 2029, laptop rekomendasi terbaik 2030">
    <meta name="author" content="lapFinder">
    <meta property="og:title" content="lapFinder">
-   <meta property="og:description" content="lapFinder adalah aplikasi yang membantu kamu menemukan laptop yang sesuai dengan kebutuhanmu.">
+   <meta property="og:description"
+      content="lapFinder adalah aplikasi yang membantu kamu menemukan laptop yang sesuai dengan kebutuhanmu.">
    <meta property="og:image" content="https://katamata.wordpress.com/wp-content/uploads/2013/09/logo-ugm.png?w=640">
    <meta property="og:url" content="https://lapfinder.vercel.app">
    <meta property="og:type" content="website">
@@ -34,14 +40,14 @@
                </div>
                <div class="row" style="margin-left:5%; margin-right: 5%;">
                   <div class="row animate__animated animate__fadeInRight animate_25ms">
-                     <div class="col-md-6">
+                     <div class="col-md-5">
                         <label for="budget">Budget</label>
-                        <input type="number" id="budget" class="form-control"
+                        <input type="text" id="budget" class="form-control"
                            placeholder="masukkan budget maksimal laptop">
                      </div>
                      <br>
                      <br>
-                     <div class="col-md-6">
+                     <div class="col-md-5">
                         <div class="form-group">
                            <label for="prodi">Pilih Program Studi kamu</label>
                            <select class="form-control" id="prodi">
@@ -49,15 +55,56 @@
                            </select>
                         </div>
                      </div>
+                     <div class="col-md-2">
+                        <button type="button" id="getRecommendationBtn"
+                           class="btn btn-success text-uppercase text-center mt-4 animate__animated animate__fadeInRight animate_25ms"
+                           onclick="getRecommendation()">Cari Laptop</button>
+                     </div>
                   </div>
                </div>
                <center>
-                  <dotlottie-player class="animate__animated animate__fadeInRight animate_25ms"
+                  <nav>
+                     <div class="nav nav-tabs mt-4" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-topsis-btn" data-bs-toggle="tab"
+                           data-bs-target="#nav-topsis" type="button" role="tab" aria-controls="nav-topsis"
+                           aria-selected="true">TOPSIS</button>
+                        <button class="nav-link" id="nav-wp-btn" data-bs-toggle="tab" data-bs-target="#nav-wp"
+                           type="button" role="tab" aria-controls="nav-wp" aria-selected="false">WP</button>
+                        <button class="nav-link" id="nav-saw-btn" data-bs-toggle="tab" data-bs-target="#nav-saw"
+                           type="button" role="tab" aria-controls="nav-saw" aria-selected="false">SAW</button>
+                     </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                     <div class="tab-pane fade show active" id="nav-topsis" role="tabpanel"
+                        aria-labelledby="nav-topsis-tab">
+                        <h3 class="mt-4 mb-4">Technique For Others Preference by Similarity to Ideal Solution</h3>
+                        <table class="mt-4 table table-striped" id="recomendedLaptopTopsis">
+                           <thead>
+                              <tr>
+                                 <th scope="col">#</th>
+                                 <th scope="col">Foto</th>
+                                 <th scope="col">Nama Laptop</th>
+                                 <th scope="col">Processor</th>
+                                 <th scope="col">RAM</th>
+                                 <th scope="col">Storage</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="tab-pane fade" id="nav-wp" role="tabpanel" aria-labelledby="nav-wp">
+                        <h3 class="mt-4 mb-4">Weighted Product</h3>
+                     </div>
+                     <div class="tab-pane fade" id="nav-saw" role="tabpanel" aria-labelledby="nav-saw">
+                        <h3 class="mt-4 mb-4">Simple Additive Weighting</h3>
+                     </div>
+                  </div>
+                  
+                  <dotlottie-player id="lottieAnim" class="animate__animated animate__fadeInRight animate_25ms"
                      src="https://assets-v2.lottiefiles.com/a/cc48331a-116a-11ee-9b68-bbf214c873b8/UmRjSxAoRG.lottie"
                      background="transparent" speed="1" style="width: 200px" loop autoplay></dotlottie-player>
-                  <button type="button" id="getRecommendationBtn"
-                     class="btn btn-lg btn-success text-uppercase text-center mt-4 animate__animated animate__fadeInRight animate_25ms"
-                     onclick="getRecommendation()">Cari Rekomendasi Laptop</button>
+
                </center>
             </div>
          </form>

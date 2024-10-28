@@ -1,5 +1,15 @@
 document.getElementsByClassName("multisteps_form_panel")[0].style.display = "block";
 
+document.getElementById("budget").addEventListener("input", function (e) {
+  let value = e.target.value.replace(/[^0-9]/g, "");
+  if (value) {
+      e.target.value = "Rp" + new Intl.NumberFormat("id-ID").format(value);
+  } else {
+      e.target.value = "";
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const driver = window.driver.js.driver;
   const driverObj = driver({
@@ -76,34 +86,72 @@ fetch("./data/prodiDataset.json")
   }
   );
 
-function getRecommendation() {
+async function getRecommendation() {
   if (checkValue() == false) {
     return;
   }
   const bareMinimum = document.getElementById("prodi").options[document.getElementById("prodi").selectedIndex].value;
-  const budget = document.getElementById("budget").value;
-  const datasetLaptop = fetchDataset();
+  const budget = parseInt(document.getElementById("budget").value.replace(/[^0-9]/g, ""), 10);
+  console.log(bareMinimum, budget);
+  const datasetLaptop = await fetchDataset();
+  console.log(datasetLaptop);
 
-  Topsis(bareMinimum, budget, datasetLaptop);
-  SAW(bareMinimum, budget, datasetLaptop);
-  WP(bareMinimum, budget, datasetLaptop);
+  const sortedTopsis = Topsis(bareMinimum, budget, datasetLaptop);
+  console.log(sortedTopsis);
+  populateTable(sortedTopsis, "recomendedLaptopTopsis");
+  document.getElementById("lottieAnim").style.display = "none";
+  
 }
 
-function fetchDataset() {
-  fetch("./data/updatedDataset.json")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      console.error("Fetch error: ", error);
+function populateTable(sortedLaptops, tableId) {
+  const tableBody = document.querySelector("#"+tableId+" tbody");
+  tableBody.innerHTML = "";
+  sortedLaptops.forEach((laptop, index) => {
+    const row = document.createElement("tr");
+    const indexCell = document.createElement("th");
+    indexCell.scope = "row";
+    indexCell.textContent = index + 1;
+    row.appendChild(indexCell);
+    const photoCell = document.createElement("td");
+    const img = document.createElement("img");
+    img.width = 50;
+    img.src = laptop.img_link || "https://via.placeholder.com/50";
+    img.alt = laptop.name;
+    photoCell.appendChild(img);
+    row.appendChild(photoCell);
+    const nameCell = document.createElement("td");
+    const nameHeading = document.createElement("h6");
+    nameHeading.textContent = laptop.name;
+    const priceParagraph = document.createElement("p");
+    priceParagraph.textContent = `Harga : Rp${laptop.price_in_rupiah.toLocaleString("id-ID")}`;
+    nameCell.appendChild(nameHeading);
+    nameCell.appendChild(priceParagraph);
+    row.appendChild(nameCell);
+    const processorCell = document.createElement("td");
+    processorCell.textContent = laptop.processor;
+    row.appendChild(processorCell);
+    const ramCell = document.createElement("td");
+    ramCell.textContent = `${laptop.ram} GB`;
+    row.appendChild(ramCell);
+    const storageCell = document.createElement("td");
+    storageCell.textContent = `${laptop.storage}`;
+    row.appendChild(storageCell);
+    tableBody.appendChild(row);
+  });
+}
+
+async function fetchDataset() {
+  try {
+    const response = await fetch("./data/updatedDataset.json");
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
     }
-    );
+    const data = await response.json();
+    return Array.isArray(data) ? data : [data];
+  } catch (error) {
+    console.error("Fetch error: ", error);
+    return [];
+  }
 }
 
 function checkValue() {
@@ -127,7 +175,70 @@ function checkValue() {
   }
 }
 
-function Topsis(bareMinimum, budget, datasetLaptop) { }
+function Topsis(bareMinimum, budget, datasetLaptop) {
+  datasetLaptop = datasetLaptop.filter(laptop => laptop.price_in_rupiah <= budget);
+  datasetLaptop = datasetLaptop.filter(laptop => laptop.cpu_score >= bareMinimum);
+  console.log(datasetLaptop);
+
+  const weight = {
+    price_in_rupiah: 0.4,
+    cpu_score: 0.3,
+    ram_score: 0.2,
+    storage_score: 0.1
+  };
+
+  const criteriaKeys = Object.keys(weight);
+  const normalizedDataset = datasetLaptop.map(laptop => {
+    const normalizedLaptop = {};
+    criteriaKeys.forEach(criteria => {
+      const normFactor = Math.sqrt(
+        datasetLaptop.reduce((sum, item) => sum + Math.pow(item[criteria], 2), 0)
+      );
+      normalizedLaptop[criteria] = laptop[criteria] / normFactor;
+    });
+    return normalizedLaptop;
+  });
+
+  const weightedDataset = normalizedDataset.map(laptop => {
+    const weightedLaptop = {};
+    criteriaKeys.forEach(criteria => {
+      weightedLaptop[criteria] = laptop[criteria] * weight[criteria];
+    });
+    return weightedLaptop;
+  });
+
+  const idealPositive = {};
+  const idealNegative = {};
+  criteriaKeys.forEach(criteria => {
+    idealPositive[criteria] = Math.max(...weightedDataset.map(laptop => laptop[criteria]));
+    idealNegative[criteria] = Math.min(...weightedDataset.map(laptop => laptop[criteria]));
+  });
+
+  const distances = weightedDataset.map((laptop, index) => {
+    const positiveDistance = Math.sqrt(
+      criteriaKeys.reduce((sum, criteria) => sum + Math.pow(laptop[criteria] - idealPositive[criteria], 2), 0)
+    );
+    const negativeDistance = Math.sqrt(
+      criteriaKeys.reduce((sum, criteria) => sum + Math.pow(laptop[criteria] - idealNegative[criteria], 2), 0)
+    );
+    return { index, positiveDistance, negativeDistance };
+  });
+
+  const scores = distances.map(({ index, positiveDistance, negativeDistance }) => {
+    return {
+      index,
+      score: negativeDistance / (positiveDistance + negativeDistance)
+    };
+  });
+
+  const sortedLaptops = scores
+    .sort((a, b) => b.score - a.score)
+    .map(({ index, score }) => ({
+      ...datasetLaptop[index],
+      topsis_score: score
+    }));
+  return sortedLaptops;
+}
 
 function SAW(bareMinimum, budget, datasetLaptop) { }
 
