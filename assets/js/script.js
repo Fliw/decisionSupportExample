@@ -102,8 +102,10 @@ async function getRecommendation() {
   } else if (selectedMethod === 'nav-wp-btn') {
     sortedLaptops = WP(bareMinimum, budget, datasetLaptop);
     populateTable(sortedLaptops, "recomendedLaptopWP");
+  } else if (selectedMethod == 'nav-saw-btn') {
+    sortedLaptops = SAW(bareMinimum, budget, datasetLaptop);
+    populateTable (sortedLaptops, "recomendedLaptopSAW");
   }
-  
   document.getElementById("lottieAnim").style.display = "none";
 }  
 
@@ -245,7 +247,60 @@ function Topsis(bareMinimum, budget, datasetLaptop) {
   return sortedLaptops;
 }
 
-function SAW(bareMinimum, budget, datasetLaptop) { }
+function SAW(bareMinimum, budget, datasetLaptop) {
+    // Filter data laptop berdasarkan budget dan skor minimal
+    datasetLaptop = datasetLaptop.filter(laptop => laptop.price_in_rupiah <= budget);
+    datasetLaptop = datasetLaptop.filter(laptop => laptop.cpu_score >= bareMinimum);
+    console.log(datasetLaptop);
+
+    // Bobot untuk setiap kriteria
+    const weight = {
+      price_in_rupiah: 0.4, // Semakin rendah harga semakin baik
+      cpu_score: 0.3, // Semakin tinggi cpu_score semakin baik
+      ram: 0.2, // Semakin tinggi ram semakin baik
+      storage: 0.1 // Semakin tinggi storage semakin baik
+    };
+
+  const criteriaKeys = Object.keys(weight);
+
+  // Menormalisasi nilai setiap kriteria untuk setiap laptop
+  const normalizedDataset = datasetLaptop.map(laptop => {
+    const normalizedLaptop = {};
+    criteriaKeys.forEach(criteria => {
+      if (criteria === 'price_in_rupiah') {
+        // Normalisasi harga (karena harga lebih rendah lebih baik)
+        const maxPrice = Math.max(...datasetLaptop.map(item => item[criteria]));
+        normalizedLaptop[criteria] = maxPrice / laptop[criteria];
+      } else {
+        // Normalisasi kriteria lainnya (semakin tinggi semakin baik)
+        const maxValue = Math.max(...datasetLaptop.map(item => item[criteria]));
+        normalizedLaptop[criteria] = laptop[criteria] / maxValue;
+      }
+    });
+    return {
+      ...laptop,
+      normalized: normalizedLaptop
+    };
+  });
+
+    // Menghitung skor SAW untuk setiap laptop
+    const sawScores = normalizedDataset.map(laptop => {
+      let score = 0;
+      criteriaKeys.forEach(criteria => {
+        score += laptop.normalized[criteria] * weight[criteria];
+      });
+      return {
+        ...laptop,
+        saw_score: score
+      };
+    });
+
+  // Mengurutkan laptop berdasarkan skor SAW dari tertinggi ke terendah
+  const sortedLaptops = sawScores.sort((a, b) => b.saw_score - a.saw_score);
+
+  return sortedLaptops;
+}
+
 
 function WP(bareMinimum, budget, datasetLaptop) { 
   // Filter data laptop berdasarkan budget dan skor minimal
