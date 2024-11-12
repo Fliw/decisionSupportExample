@@ -33,11 +33,23 @@
 <body>
    <div class="wrapper">
       <div class="container">
+         <div class="text-end my-3">
+            <a href="admin.html" class="btn btn-dark">Go to Admin Page</a>
+        </div>
          <form class="multisteps_form overflow-hidden position-relative" action="#">
             <div class="multisteps_form_panel">
                <div class="question_title">
                   <h1 class="text-center py-5 animate__animated animate__fadeInRight animate_25ms">LapFinder</h1>
                </div>
+                <div class="text-center mb-4">
+                  <h3 class="mb-3">Pilih Kriteria</h3>
+                  <form id="criteriaForm" class="d-flex flex-column align-items-center">
+                      <label><input type="checkbox" name="criteria" value="price_in_rupiah"> Harga</label>
+                      <label><input type="checkbox" name="criteria" value="cpu_score"> Skor CPU</label>
+                      <label><input type="checkbox" name="criteria" value="ram"> RAM</label>
+                      <label><input type="checkbox" name="criteria" value="storage"> Storage</label>
+                  </form>
+              </div>
                <div class="row" style="margin-left:5%; margin-right: 5%;">
                   <div class="row animate__animated animate__fadeInRight animate_25ms">
                      <div class="col-md-5">
@@ -136,6 +148,12 @@
                </center>
             </div>
          </form>
+         <div class="container my-5">
+            <h2 >List Pilihan Laptop</h2>
+            <div id="laptopList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            </div>
+            <div id="pagination" class="d-flex justify-content-center my-4"></div>
+          </div>          
       </div>
    </div>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js"></script>
