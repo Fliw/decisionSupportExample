@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Tambah Laptop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lapFinder</title>
+    <link
+       href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700;800&amp;family=Sen:wght@400;700;800&amp;display=swap"
+       rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+    <link rel="icon" href="https://katamata.wordpress.com/wp-content/uploads/2013/09/logo-ugm.png?w=640"
+       type="image/x-icon">
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container mt-5">
+            <div class="text-end mb-4">
+                <a href="index.html" class="btn btn-dark">Go to Main Page</a>
+            </div>
+            <h2 class="text-center mb-4">Tambah Laptop Baru</h2>
+            <form id="addLaptopForm" class="p-4 border rounded">
+                <div class="form-group mb-3">
+                    <label for="name">Nama Laptop</label>
+                    <input type="text" id="name" placeholder="Nama Laptop" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="price">Harga (Rp)</label>
+                    <input type="text" id="price" placeholder="Harga (Rp)" class="form-control" required>
+                </div>                
+                <div class="form-group mb-3">
+                    <label for="cpu_score">Skor CPU</label>
+                    <input type="number" id="cpu_score" placeholder="Skor CPU" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="ram">RAM (GB)</label>
+                    <input type="number" id="ram" placeholder="RAM (GB)" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="storage">Storage</label>
+                    <input type="text" id="storage" placeholder="Storage" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="img_link">Link Gambar</label>
+                    <input type="text" id="img_link" placeholder="Link Gambar" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Tambah Laptop</button>
+            </form>
+    
+            <h2 class="text-center my-4">Pengaturan Pembobotan</h2>
+            <form id="weightingForm" class="p-4 border rounded">
+                <div class="form-group mb-3">
+                    <label for="criteriaSelect">Pilih Kriteria</label>
+                    <select id="criteriaSelect" class="form-control">
+                        <option value="price_in_rupiah">Harga</option>
+                        <option value="cpu_score">Skor CPU</option>
+                        <option value="ram">RAM</option>
+                        <option value="storage">Storage</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="weight">Bobot (0-1)</label>
+                    <input type="number" id="weight" placeholder="Bobot (0-1)" step="0.1" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-secondary w-100">Simpan Bobot</button>
+            </form>
+    
+            <div id="weightDisplay" class="my-4 p-4 border rounded">
+                <h3 class="text-center">Bobot yang Digunakan:</h3>
+                <p>Harga: <span id="weight_price_in_rupiah">-</span></p>
+                <p>CPU Score: <span id="weight_cpu_score">-</span></p>
+                <p>RAM: <span id="weight_ram">-</span></p>
+                <p>Storage: <span id="weight_storage">-</span></p>
+            </div>
+    
+            <h2 class="text-center my-5">List Pilihan Laptop</h2>
+            <div id="laptopListAdmin" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            </div>
+            <div id="adminPagination" class="d-flex justify-content-center my-4"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@johanaarstein/dotlottie-player@1.5.23/dist/index.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
